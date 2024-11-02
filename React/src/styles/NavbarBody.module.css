@@ -1,0 +1,54 @@
+.navbar {
+    width: var(--navbarWith);
+    height: 100vh;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    background-color: var(--navbarBackgroundColor);
+    color: var(--navbarColorText);
+    border-right: var(--navbarBorderSize) var(--navbarBorderColor) var(--navbarBorderType);
+    
+    transition: transform var(--navbarVelocityAnimation) var(--navbarTypeOpen);
+}
+
+.hidden {
+    transform: translateX(-100%);
+}
+
+.navbar div {
+    margin: 10px 0;
+}
+
+.content {
+    max-width: 100vw;
+    min-height: 100vh;
+    transition: transform var(--navbarVelocityAnimation) var(--navbarTypeOpen);
+}
+
+
+.buttonCloseOpen {
+    width: var(--navbarButtonWidth);
+    height: var(--navbarButtonHeight);
+    padding: 10px;
+
+    background-color: var(--navbarBackgroundColor);
+    color: var(--navbarColorText);
+    
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    z-index: 10;
+    
+    transition: transform var(--navbarVelocityAnimation) var(--navbarTypeOpen);
+}
+
+.openNavbar {
+    transform: translateX(calc(var(--navbarWith) + 40px));
+}

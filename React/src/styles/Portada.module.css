@@ -1,0 +1,158 @@
+.banner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    filter: blur(5px);
+    /* Aplicar desenfoque */
+    object-fit: cover;
+    /* Mantener la proporción de la imagen */
+}
+
+.degradado {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1));
+    /* Degradado negro */
+    z-index: -1;
+    /* Asegúrate de que esté por encima de la imagen */
+}
+
+.titleContainter {
+    position: relative;
+    /* Cambiado de display: absolute a position: relative */
+    display: flex;
+    /* Cambiado a flex para alinear los elementos si es necesario */
+    flex-direction: column;
+    /* Si deseas que los elementos se apilen verticalmente */
+    align-items: start;
+    width: 70%;
+    margin: 0 10px;
+    /* Ajustar el margen superior y centrar el contenedor */
+    padding: 20px;
+    /* Opcional: agregar padding para el contenido interno */
+    border-radius: 8px;
+    /* Añadir bordes redondeados opcionales */
+
+    color: #ffffff;
+    /* Asegúrate de que el texto sea visible */
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.title {
+    font-size: 60px;
+    margin-bottom: 10px;
+    /* Espacio debajo del título */
+    text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.puntuacion {
+    margin: auto;
+}
+
+.OnlyButton {
+    margin: 20px;
+    background: #007BFF;
+    /* Color de fondo azul */
+    color: white;
+    /* Color del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 25px;
+    /* Bordes redondeados */
+    padding: 15px 30px;
+    /* Espaciado interno */
+    font-size: 18px;
+    /* Tamaño de la fuente */
+    font-weight: bold;
+    /* Negrita */
+    text-transform: uppercase;
+    /* Texto en mayúsculas */
+    cursor: pointer;
+    /* Cambia el cursor a mano */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Transiciones suaves */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra del botón */
+}
+
+.OnlyButton:hover {
+    background: #0056b3;
+    /* Color de fondo más oscuro al pasar el cursor */
+    transform: scale(1.05);
+    /* Aumenta ligeramente el tamaño */
+}
+
+.OnlyButton:active {
+    transform: scale(0.95);
+    /* Efecto de pulsación al hacer clic */
+}
+
+.temporadaContainer {
+    display: flex;
+    margin-bottom: 20px; /* Espacio entre temporadas */
+}
+
+.temporada {
+    flex: 0 0 200px; /* Ancho fijo para la temporada */
+    padding: 10px; /* Espacio interno */
+    border-right: 1px solid #ccc; /* Línea divisoria */
+}
+
+.capitulosContainer {
+    flex: 1; /* Ocupa el espacio restante */
+    display: flex;
+    flex-wrap: wrap; /* Permite que los capítulos se muestren en varias filas si es necesario */
+}
+
+.capitulo {
+    position: relative; /* Necesario para posicionar elementos internos */
+    flex: 0 0 30%; /* Cada capítulo ocupa el 30% del ancho del contenedor */
+    margin: 10px; /* Espacio entre capítulos */
+    text-align: center; /* Centrar texto en cada capítulo */
+    cursor: pointer; /* Cambiar el cursor al pasar por encima */
+    overflow: hidden; /* Para asegurarse de que no se salga la imagen difuminada */
+}
+
+.imageContainer {
+    position: absolute; /* Posicionar la imagen detrás del texto */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden; /* Ocultar parte de la imagen que sale del contenedor */
+    z-index: -1; /* Colocar la imagen detrás del texto */
+}
+
+.covers {
+    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    object-fit: cover; /* Mantener la proporción de la imagen */
+    filter: blur(5px); /* Aplicar el efecto de difuminado */
+}
+
+.textContainer {
+    position: relative; /* Para que el texto esté en la parte superior de la imagen */
+    z-index: 1; /* Asegurarse de que el texto esté delante de la imagen */
+    color: white; /* Cambia el color según sea necesario */
+    font-weight: 800;
+    padding: 10px; /* Espacio interno para el texto */
+    backdrop-filter: blur(2px); /* Opcional: agrega un fondo difuminado detrás del texto */
+}
+
+.capituloNombre,
+.capituloDescripcion,
+.capituloIbm {
+    margin: 5px 0; /* Espacio entre los elementos de texto */
+}
