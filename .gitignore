@@ -13,10 +13,10 @@ React/.pnp
 React/.pnp.js
 
 # testing
-React//coverage
+React/coverage
 
 # production
-React//build
+React/build
 
 # misc
 React/.DS_Store
