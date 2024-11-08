@@ -7,14 +7,15 @@ from .models import *  # Asegúrate de importar Generos
 from .serializers import *  # Asegúrate de tener el serializer correcto
 from collections import defaultdict
 
-import re
-from django.http import StreamingHttpResponse, Http404
-from wsgiref.util import FileWrapper
-import os
-
+# Autentificación
+from django.contrib.auth import authenticate
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.contrib.auth.hashers import check_password
 
 # Importaciones para el video
-from django.http import StreamingHttpResponse, Http404
+import re
+from django.http import StreamingHttpResponse, Http404, JsonResponse
 from wsgiref.util import FileWrapper
 import os
 
@@ -51,6 +52,29 @@ class CapitulosDetailView(generics.RetrieveAPIView):
     queryset = Capitulos.objects.all()
     serializer_class = CapitulosSerializer
     lookup_field = 'id'  # Esto permitirá buscar por ID
+
+@method_decorator(csrf_exempt, name='dispatch')
+def login_view(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        correo = data.get('correo')
+        password = data.get('password')
+
+        try:
+            # Buscar el usuario por correo electrónico
+            usuario = Cuentas.objects.get(correo=correo)
+            
+            # Verificar la contraseña
+            if check_password(password, usuario.password):
+                # Generar un token JWT o manejar la sesión
+                # Aquí deberías generar un token JWT, pero por simplicidad devolvemos un mensaje de éxito
+                return JsonResponse({'success': True, 'message': 'Inicio de sesión exitoso'})
+            else:
+                return JsonResponse({'success': False, 'message': 'Contraseña incorrecta'}, status=401)
+        except Cuentas.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Usuario no encontrado'}, status=404)
+    return JsonResponse({'success': False, 'message': 'Método no permitido'}, status=405)
+
 
 def stream_video(request, video_id):
     try:

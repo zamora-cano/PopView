@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from "../styles/Portada.module.css";
+import { Button } from 'react-bootstrap'; // Importamos el botón de Bootstrap
 
 const Portada = () => {
     const [media, setMedia] = useState(null);
@@ -41,6 +42,15 @@ const Portada = () => {
         <div style={{ color: "white" }}>
             <img src={media.banner_url} alt={media.nombre} className={styles.banner} />
             <div className={styles.degradado} />
+
+            {/* Botón para regresar al menú */}
+            <Button 
+                variant="light" 
+                className={styles.backButton} 
+                onClick={() => window.location = 'http://localhost:3000'}>
+                Regresar al menú
+            </Button>
+
             <div className={styles.titleContainter}>
                 <div className={styles.title}>{media.nombre}</div>
                 <div>{media.descripcion}</div>

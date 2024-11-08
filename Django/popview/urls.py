@@ -11,4 +11,6 @@ urlpatterns = [
     path('v1/media/<int:id>/', MediaDetailView.as_view(), name='media-detail'),
     path('v1/capitulos/<int:id>/', CapitulosDetailView.as_view(), name='capitulo-detail'),  # Para vista basada en clase
     path('v1/stream/<int:video_id>/', stream_video, name='stream_video'),  # Para vista basada en clase
+    path('v1/login/', login_view, name='login'),
+
 ]

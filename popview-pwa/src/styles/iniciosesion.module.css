@@ -1,0 +1,36 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.inputsContainer {
+    width: 500px;
+    height: 500px;
+    background-color: #e1e1e1;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px 20px 50px 50px; /* Bordes redondeados para la forma de la cubeta */
+    background: linear-gradient(135deg, #f9f9f9, #e1e1e1); /* Degradado suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para darle algo de dimensión */
+}
+
+.inputsContainer div:first-child{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.inputsContainer div{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}

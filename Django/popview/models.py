@@ -8,6 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator # type: 
 import os
 import uuid
 from moviepy.editor import VideoFileClip # type: ignore
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 url_datas = "m/"
 
@@ -105,7 +106,29 @@ class Covers(models.Model):
     def __str__(self):
         return self.nombre 
 
-class Cuentas(models.Model):
+
+class CuentasManager(BaseUserManager):
+    def create_user(self, correo, password=None, **extra_fields):
+        if not correo:
+            raise ValueError('El usuario debe tener un correo electrónico')
+        correo = self.normalize_email(correo)
+        user = self.model(correo=correo, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, correo, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('El superusuario debe tener is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('El superusuario debe tener is_superuser=True.')
+
+        return self.create_user(correo, password, **extra_fields)
+
+class Cuentas(AbstractBaseUser, PermissionsMixin):
     STATUS_CHOICES = [
         ('nuevo', _('Nuevo')),
         ('sin_pagar', _('Sin Pagar')),
@@ -122,23 +145,31 @@ class Cuentas(models.Model):
     fecha_creacion = models.DateTimeField(_("Fecha de creación"), default=timezone.now)
     status = models.CharField(max_length=25, choices=STATUS_CHOICES, default='nuevo', null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-        if not self.id:  # Si es un nuevo registro
-            self.contrasena = make_password(self.contrasena)
-        super().save(*args, **kwargs)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = CuentasManager()
+
+    USERNAME_FIELD = 'correo'
+    REQUIRED_FIELDS = ['nombre']
 
     def __str__(self):
-        return self.nombre 
+        return self.nombre
+
 
 class Usuarios(models.Model):
     id = models.AutoField(primary_key=True)
-    cuenta = models.ForeignKey(Cuentas, on_delete=models.CASCADE, related_name="usuarios", verbose_name=_("Cuenta"))
+    cuenta = models.OneToOneField(Cuentas, on_delete=models.CASCADE)
     imagen = models.ForeignKey(Imagenes, on_delete=models.CASCADE, related_name="usuarios", verbose_name=_("Imagen"))
     nombre = models.CharField(_("Nombre"), max_length=100)
     password = models.CharField(_("Contraseña"), max_length=128)
     infantil = models.BooleanField(_("Infantil"), default=False)
     fecha_creacion = models.DateTimeField(_("Fecha de creación"), default=timezone.now)
     status = models.CharField(max_length=25, null=True, blank=True)
+
+    USERNAME_FIELD = 'nombre'
+    REQUIRED_FIELDS = ['nombre', 'password']
+
 
     def save(self, *args, **kwargs):
         if not self.id:  # Si es un nuevo registro
@@ -147,6 +178,13 @@ class Usuarios(models.Model):
 
     def __str__(self):
         return self.nombre
+
+def create_user_account (sender, instance, created, **kwargs):
+    if created:
+        Usuarios.objects.create(cuenta = instance)
+
+def save_user_account(sender,instance, **kwargs):
+    instance.usuarios.save()
 
 class Generos(models.Model):
     id = models.AutoField(primary_key=True)
