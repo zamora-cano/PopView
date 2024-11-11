@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from "../styles/Portada.module.css";
 import { Button } from 'react-bootstrap'; // Importamos el botón de Bootstrap
+import { useGlobal } from '../components/GlobalContext';
 
 const Portada = () => {
     const [media, setMedia] = useState(null);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
+
+    const {urlBackend,urlFront} = useGlobal()
+
 
     useEffect(() => {
         const fetchMedia = async () => {
@@ -14,7 +18,7 @@ const Portada = () => {
             const mediaId = queryParams.get('m');
 
             try {
-                const response = await fetch(`http://127.0.0.1:8000/popview/v1/media/${mediaId}`, {
+                const response = await fetch(`${urlBackend}/popview/v1/media/${mediaId}`, {
                     mode: 'cors',
                     credentials: 'include'
                 });
@@ -32,7 +36,7 @@ const Portada = () => {
             }
         };
         fetchMedia();
-    }, [location.search]);
+    }, [location.search, urlBackend]);
 
     if (loading) {
         return <div style={{ color: "white" }}>Cargando...</div>;
@@ -47,7 +51,7 @@ const Portada = () => {
             <Button 
                 variant="light" 
                 className={styles.backButton} 
-                onClick={() => window.location = 'http://localhost:3000'}>
+                onClick={() => window.location = urlFront}>
                 Regresar al menú
             </Button>
 
@@ -66,7 +70,7 @@ const Portada = () => {
                             </div>
                             <div className={styles.capitulosContainer}>
                                 {capitulos.map((capitulo) => (
-                                    <div key={capitulo.id} className={styles.capitulo} onClick={() => window.location = `./watch?c=${capitulo.id}`}>
+                                    <div key={capitulo.id} className={styles.capitulo} onClick={() => window.location = `${urlFront}/watch?c=${capitulo.id}`}>
                                         <div className={styles.imageContainer}>
                                             <img className={styles.covers} src={capitulo.cover_url} alt={capitulo.nombre} />
                                         </div>
@@ -83,7 +87,7 @@ const Portada = () => {
                     {capitulos.length === 1 && (
                         <button
                             className={styles.OnlyButton}
-                            onClick={() => window.location = `./watch?c=${capitulos[0].id}`}
+                            onClick={() => window.location = `${urlFront}/watch?c=${capitulos[0].id}`}
                         >
                             Ver película
                         </button>
