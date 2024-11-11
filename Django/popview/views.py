@@ -32,16 +32,17 @@ class MediaDetailView(generics.RetrieveAPIView):
 
 class RandomMediasView(APIView):
     def get(self, request, *args, **kwargs):
-        cantidad = 6
+        # Obtiene el valor de 'cantidad' desde los parámetros de consulta (query params), con valor por defecto de 6
+        cantidad = int(request.query_params.get('cantidad', 6))
 
         # Recupera todas las instancias de Medias
         all_medias = Medias.objects.all()
 
-        # Verifica que haya al menos 20 medias disponibles
+        # Verifica que haya suficientes medias disponibles
         if all_medias.count() < cantidad:
             return Response({"error": "Not enough media available."}, status=404)
 
-        # Selecciona 2 medias de forma aleatoria
+        # Selecciona las medias de forma aleatoria
         random_medias = random.sample(list(all_medias), cantidad)
 
         # Serializa los objetos seleccionados
