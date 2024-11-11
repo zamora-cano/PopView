@@ -1,6 +1,8 @@
 # Back
 Django/venv/
 Django/m/
+Django/drf/__pycache__/
+Django/popview/__pycache__/
 Django/otros/
 Django/*.sqlite3
 
