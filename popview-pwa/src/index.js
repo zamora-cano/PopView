@@ -1,23 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { GlobalProvider } from './components/GlobalContext'; // Importa el proveedor global
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+/* Styles */
+import './index.css';
+
+/* Pages */
 import Home from './pages/Home';
 import Portada from './pages/Portada';
 import Watch from './pages/Watch';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import the necessary components
+import Random from './pages/Random';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/p" element={<Portada />} />
-      <Route path="/watch" element={<Watch />} />
-    </Routes>
-  </Router>
+  <GlobalProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/p" element={<Portada />} />
+        <Route path="/watch" element={<Watch />} />
+        <Route path="/aleatorio" element={<Random />} />
+      </Routes>
+    </Router>
+  </GlobalProvider>
 );
 
 // If you want your app to work offline and load faster, you can change
