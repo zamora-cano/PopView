@@ -68,13 +68,20 @@
     padding: 5px 20px;
 }
 
+.generoContainer {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    justify-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
 .generos {
     align-items: center;
     text-align: center;
     margin: auto;
-    /* Espacio entre elementos, opcional */
     color: white;
-
     transition: transform 0.2s ease;
 }
 
@@ -84,15 +91,11 @@
 }
 
 .generos img {
-    width: 80px;
-    height: 80px;
-
+    width: 10vh; /* Tamaño relativo al viewport height para mantener proporciones */
+    height: 10vh;
     filter: drop-shadow(1px 1px 1px #f1f1f1);
 }
 
-.generoContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+.generos div {
+    font-size: 2vh; /* Tamaño del texto relativo a la altura de la pantalla */
 }
-

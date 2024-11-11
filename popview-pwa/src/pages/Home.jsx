@@ -5,17 +5,23 @@ import NavbarBody from "../components/NavbarBody"
 
 import style from "../styles/home.module.css"
 import InicioSesion from "../components/InicioSesion"
+// import InstallButton from "../components/InstallButton"
+import { useGlobal } from "../components/GlobalContext"
+
 
 function Home() {
     const [generos, setGeneros] = useState([]);
     const [mediasDescubrir, setMediasDescubrir] = useState([]);
 
+    const {urlBackend,urlFront} = useGlobal()
+
     const [sesion, setSesion] = useState(true)
 
     useEffect(() => {
+        setSesion(true) // Cambiar por la funsión en el inicio de sesión hermano
         const fetchGeneros = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/popview/v1/generos/');
+                const response = await fetch(`${urlBackend}/popview/v1/generos/`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -28,7 +34,7 @@ function Home() {
         };
         const fetchMediasDescubrir = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/popview/v1/medias/random/');
+                const response = await fetch(`${urlBackend}/popview/v1/medias/random/`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -42,7 +48,9 @@ function Home() {
 
         fetchGeneros();
         fetchMediasDescubrir();
-    }, []);
+    }, [urlBackend]);
+
+
 
     return <>
         {sesion ?
@@ -59,10 +67,13 @@ function Home() {
                     </div>
                 </div>
 
+                {/* <InstallButton></InstallButton> */}
+
                 <div className={style.content}>
+                    
                     <div className="divisor">Generos</div>
                     <div className={style.generoContainer}>
-                        <div className={style.generos} onClick={() => window.location = './aleatorio'}>
+                        <div className={style.generos} onClick={() => window.location = urlFront+'/aleatorio'}>
                             <div>
                                 <img src={"./icon/dados.png"} alt={"Aleatorio"} />
                             </div>
@@ -71,7 +82,7 @@ function Home() {
                             </div>
                         </div>
                         {generos.map((genero, index) => (
-                            <div key={index} className={style.generos} onClick={() => window.location = "./b?g=" + genero.nombre}>
+                            <div key={index} className={style.generos} onClick={() => window.location = urlFront+ "/b?g=" + genero.nombre}>
                                 <div>
                                     <img src={genero.imagen} alt={genero.nombre} />
                                 </div>
@@ -87,7 +98,7 @@ function Home() {
                     <div className="divisor">Descubre Peliculas</div>
                     <Carrusel>
                         {mediasDescubrir.map((media, index) => (
-                            <Cover key={index} portada={media.poster_url} portada2={media.cover_url} onclick={() => window.location = "./p?m=" + media.id} />
+                            <Cover key={index} portada={media.poster_url} portada2={media.cover_url} onclick={() => window.location = urlFront+"/p?m=" + media.id} />
 
                         ))}
                     </Carrusel>
