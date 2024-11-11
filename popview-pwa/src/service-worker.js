@@ -59,7 +59,7 @@ registerRoute(
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
   })
-);
+);  
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
