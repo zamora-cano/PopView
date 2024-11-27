@@ -3,6 +3,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework import status
 from .models import *  # Asegúrate de importar Generos
 from .serializers import *  # Asegúrate de tener el serializer correcto
 from collections import defaultdict
@@ -130,3 +131,31 @@ def stream_video(request, video_id):
         raise Http404("Capítulo no encontrado.")
     except FileNotFoundError:
         raise Http404("El video no fue encontrado.")
+    
+class SearchMediaView(APIView):
+    """
+    Vista para buscar medios (películas, series, etc.) por título o descripción.
+    """
+    def get(self, request, *args, **kwargs):
+        query = request.query_params.get('q', '')  # Obtiene el término de búsqueda desde los parámetros de consulta
+        
+        if not query:
+            return Response(
+                {"error": "Se requiere un término de búsqueda ('q')."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Filtra los medios por el término de búsqueda en el título o descripción
+        filtered_medias = Medias.objects.filter(
+            nombre__icontains=query  # Busca de forma insensible a mayúsculas
+        )
+
+        if not filtered_medias.exists():
+            return Response(
+                {"message": "No se encontraron resultados para el término de búsqueda."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Serializa y devuelve los resultados
+        serializer = MediasSerializer(filtered_medias, many=True, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)

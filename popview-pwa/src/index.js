@@ -15,6 +15,8 @@ import Home from './pages/Home';
 import Portada from './pages/Portada';
 import Watch from './pages/Watch';
 import Random from './pages/Random';
+import Busqueda from './pages/Busqueda';
+import PageNotFound from './pages/PageNotFound';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,6 +28,8 @@ root.render(
         <Route path="/p" element={<Portada />} />
         <Route path="/watch" element={<Watch />} />
         <Route path="/aleatorio" element={<Random />} />
+        <Route path="/b" element={<Busqueda />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </Router>
   </GlobalProvider>

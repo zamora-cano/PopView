@@ -7,6 +7,7 @@ router.register('generos', GenerosViewSet, basename='generos')
 
 urlpatterns = [
     path('v1/', include(router.urls)),
+    path('v1/medias/search/', SearchMediaView.as_view(), name='search_media'),
     path('v1/medias/random/', RandomMediasView.as_view(), name='random_medias'),  # Nueva ruta para medias aleatorias
     path('v1/media/<int:id>/', MediaDetailView.as_view(), name='media-detail'),
     path('v1/capitulos/<int:id>/', CapitulosDetailView.as_view(), name='capitulo-detail'),  # Para vista basada en clase

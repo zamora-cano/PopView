@@ -61,8 +61,6 @@
 
 .OnlyButton {
     margin: 20px;
-    background: #007BFF;
-    color: white;
     border: none;
     border-radius: 25px;
     padding: 15px 30px;
@@ -73,6 +71,12 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.OnlyButtonBlue {
+    background: #007BFF;
+    color: white;    
+}
+
 
 .OnlyButton:hover {
     background: #0056b3;

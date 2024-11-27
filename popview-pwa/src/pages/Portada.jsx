@@ -9,7 +9,7 @@ const Portada = () => {
     const [loading, setLoading] = useState(true);
     const location = useLocation();
 
-    const {urlBackend,urlFront} = useGlobal()
+    const { urlBackend, urlFront } = useGlobal()
 
 
     useEffect(() => {
@@ -48,9 +48,9 @@ const Portada = () => {
             <div className={styles.degradado} />
 
             {/* Botón para regresar al menú */}
-            <Button 
-                variant="light" 
-                className={styles.backButton} 
+            <Button
+                variant="light"
+                className={styles.backButton}
                 onClick={() => window.location = urlFront}>
                 Regresar al menú
             </Button>
@@ -85,12 +85,17 @@ const Portada = () => {
                         </>
                     )}
                     {capitulos.length === 1 && (
-                        <button
-                            className={styles.OnlyButton}
-                            onClick={() => window.location = `${urlFront}/watch?c=${capitulos[0].id}`}
-                        >
-                            Ver película
-                        </button>
+                        <>
+                            <button
+                                className={styles.OnlyButton + ' '+ styles.OnlyButtonBlue}
+                                onClick={() => window.location = `${urlFront}/watch?c=${capitulos[0].id}`}
+                            >
+                                Ver película
+                            </button>
+                            <button
+                                className={styles.OnlyButton}
+                            >Guardar mas tarde</button>
+                        </>
                     )}
                 </div>
             ))}

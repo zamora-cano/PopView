@@ -130,7 +130,6 @@ const Watch = () => {
                                         className={styles.video}
                                         autoPlay
                                         loop
-                                        muted
                                         onTimeUpdate={handleTimeUpdate}
                                         onLoadedMetadata={handleLoadedMetadata}
                                     />
