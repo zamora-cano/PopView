@@ -50,19 +50,22 @@ source venv/bin/activate
 
 Instalar las dependencias del backend:
 
-bash
-Copiar código
+```bash
 pip install -r requirements.txt
+```
+
 Configurar las migraciones de la base de datos:
 
-bash
-Copiar código
+```bash
 python manage.py migrate
+```
+
 Crear un superusuario para acceder al panel de administración de Django:
 
-bash
-Copiar código
+```bash
 python manage.py createsuperuser
+```
+
 Sigue las instrucciones para crear el superusuario.
 
 3. Configurar el frontend (React)
@@ -70,17 +73,19 @@ Sigue las instrucciones para crear el superusuario.
 
 Navega a la carpeta frontend y ejecuta:
 
-bash
-Copiar código
+```bash
 cd frontend
 npm install
+```
+
 Generar el build de React:
 
 Una vez que hayas configurado las dependencias, genera la versión de producción de la aplicación React:
 
-bash
-Copiar código
+```bash
 npm run build
+```
+
 Este comando creará una carpeta build con los archivos estáticos que serán servidos por Django.
 
 4. Configuración de archivos estáticos en Django
@@ -88,8 +93,7 @@ Este comando creará una carpeta build con los archivos estáticos que serán se
 
 En el archivo settings.py de Django, agrega la siguiente configuración para los archivos estáticos:
 
-python
-Copiar código
+```bash
 STATICFILES_DIRS = [
 BASE_DIR / "frontend/build/static",
 ]
@@ -102,13 +106,16 @@ BASE_DIR / "frontend/build",
 ], # Otros ajustes
 },
 ]
+```
+
 Ejecutar el servidor Django:
 
 Una vez configurado, puedes iniciar el servidor Django:
 
-bash
-Copiar código
+```bash
 python manage.py runserver
+```
+
 Ahora tu aplicación debería estar disponible en http://127.0.0.1:8000/.
 
 Cómo usar la aplicación
