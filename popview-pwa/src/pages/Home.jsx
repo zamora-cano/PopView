@@ -81,7 +81,7 @@ function Home() {
                     <div className={style.generoContainer}>
                         <div className={style.generos} onClick={() => window.location = urlFront + '/aleatorio'}>
                             <div>
-                                <img src={"./icon/dados.png"} alt={"Aleatorio"} />
+                                <img src={"./static/icon/dados.png"} alt={"Aleatorio"} />
                             </div>
                             <div>
                                 Aleatorio
