@@ -22,4 +22,4 @@ tqdm==4.66.5
 typing_extensions==4.12.2
 tzdata==2024.2
 urllib3==2.2.3
-gunicorn nombre_de_tu_proyecto.wsgi --preload --workers=3 --bind=0.0.0.0:8000
+gunicorn==20.1.0
