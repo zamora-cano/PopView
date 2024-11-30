@@ -80,16 +80,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Alternativamente, permite solo desde 'http://localhost:3000'
 CORS_ALLOWED_ORIGINS = [
-    "https://50ee-187-212-116-110.ngrok-free.app",  # ngrok URL si estás usando ngrok
-    "http://localhost:3000",  # Para pruebas locales
-    "http://172.31.99.238:3000",
+    "https://angel2204.pythonanywhere.com",  # ngrok URL si estás usando ngrok
 ]
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://50ee-187-212-116-110.ngrok-free.app",  # Si usas ngrok
-    "http://localhost:8000",
-    "http://172.31.99.238:3000",
+    "https://angel2204.pythonanywhere.com",  # Si usas ngrok
 ]
 
 X_FRAME_OPTIONS = "ALLOW_ALL"
@@ -128,8 +124,12 @@ WSGI_APPLICATION = "drf.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "angel2204$default",
+        "USER" : "angel2204",
+        "PASSWORD" : "popview22.",
+        "HOST" : "angel2204.mysql.pythonanywhere-services.com",
+        "PORT" : "3306",
     }
 }
 
